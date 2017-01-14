@@ -157,7 +157,7 @@ Arrange your switch footprints as shown if you haven't already. Then, edit each 
 
 ![move and place](https://puu.sh/tlLVU/cbfed7c75c.png)
 
-Let's put our diodes under our switches first. Make sure each diode corresponds to its switch:
+Let's put our diodes under our switches first (**THIS PLACEMENT WILL ONLY WORK FOR SMD DIODES**). Make sure each diode corresponds to its switch:
 
 ![diodes](https://puu.sh/tlMd2/7879338387.png)
 
@@ -270,14 +270,88 @@ And now we'll route the diodes and switches. First, route the diodes and switche
 
 And finally, we'll route the controller to the rows and columns:
 
-![done](https://puu.sh/tlQBG/299c54bab7.png)
+![done](https://puu.sh/tlR0E/94b47f2631.png)
 
-Turn on your zones, fill in any missing ground planes, and voila:
+Turn on your zones, fill in any missing ground planes, press `b` to update the zones, and voila:
 
-![voila](https://puu.sh/tlQE6/42810ef699.png)
+![voila](https://puu.sh/tlR6I/b49d887f16.png)
+
+Double check that all connections have been made using the DRC (design rule check) tool:
+
+![drc](https://puu.sh/tlRb5/fd409937c6.png)
+
+Click "Start DRC" and make sure there are no problems. Then click "List Unconnected" and check for unconnected nets. If both sections are blank, then...
 
 Your PCB is finished!
 
-Go to View > 3D View and turn on Preference > Realistic Mode. Turn up all the settings you want, set your background color, and you'll have a nice render of your PCB!
+Go to View > 3D View and turn on Preference > Realistic Mode. Turn up all the settings you want, set your background color, and you'll have a nice render of your PCB! You can even select the Text tool and the B.SilkS layer to put your name on your PCB:
 
-![render](https://puu.sh/tlQJE/7a5c1b4374.png)
+![render](https://puu.sh/tlRpH/05e76f2ba9.png)
+
+### Mounting Holes
+
+Now, with a normal PCB, you would want to add some mounting holes. The way you would add those would be by creating custom footprints with NPTH (non-plated through hole) pads and adding them to your PCB. This is out of scope for this guide, but this is something that is very simple to Google!
+
+## Production
+
+Now that you've finished designing your PCB, you want to get it made, right? Let's get you started on that.
+
+### Gerber Files
+
+First thing is to generate our "gerbers", which are essentially files that tell the PCB manufactuer what is on each layer. Click on the "plot" icon:
+
+![plot](https://puu.sh/tlRkO/78a1867517.png)
+
+Specify a directory to put your gerber files into and make sure the F.Cu, B.Cu, B.Paste, F.Paste, B.SilkS, F.SilkS, B.Mask, F.Mask, and Edge.Cuts layers are selected. Check the "Use Protel filename extensions" option, and make sure the format is "4.6 (unit mm)":
+
+![settings](https://puu.sh/tlRm9/9d12559390.png)
+
+Click on "Plot" to generate your files.
+
+Then, click on "Generate Drill File". Set the output directory to be the same as before, set your drill units to "Inches", and your Drill Map File Format to "PostScript". Make sure "Mirror y axis" is **unchecked**, and then click "Drill File":
+
+![drill files](https://puu.sh/tlRzp/4d4f434188.png)
+
+Now close the dialogs.
+
+Put all the files you just generated into a zip file:
+
+![zip file](https://puu.sh/tlRCO/9290dc2ca2.png)
+
+Upload your files onto http://www.gerber-viewer.com/ and make sure all the layers look good. If so, you're ready to send your PCB off to the manufacturer!
+
+### Manufacturer
+
+Now, there are a lot of options here. I've personally used [PCBWay](http://www.pcbway.com/) to great success, but there are plenty of other cheap PCB prototyping services, such as [EasyEDA](https://easyeda.com/) and [DirtyPCBs](http://dirtypcbs.com/store/pcbs).
+
+All of these services simply involve choosing some options for how your PCBs will be manufactuered (default settings are fine for all of them), then uploading the zip file you just created. If you want to change the color of your PCB, then the option you will want to look for is "solder mask color". The color of the text on your PCB will be "silkscreen color".
+
+Once you receive your PCBs, you can simply use some solder paste and a hot air rework station to put everything together! If you're unsure of how to do this, there are plenty of resources online that can teach you the basics of SMD soldering.
+
+### Components
+
+But where do you get the components from? I highly recommend [DigiKey](http://www.digikey.com/) for components. Here's a list of all the components used in this guide:
+
+* **Microcontroller**: https://www.digikey.com/product-detail/en/microchip-technology/ATMEGA32U4-AUR/ATMEGA32U4-AURCT-ND/3440960
+
+* **Crystal**: https://www.digikey.com/product-detail/en/epson/FA-238-16.0000MB-C3/SER3686CT-ND/2403459
+
+* **22pF Capacitors**: https://www.digikey.com/product-detail/en/kemet/C0805C220J5GACTU/399-1113-1-ND/411388
+
+* **0.1uF Capacitors**: https://www.digikey.com/product-detail/en/yageo/CC0805ZRY5V9BB104/311-1361-1-ND/2103145
+
+* **1uF Capacitors**: https://www.digikey.com/product-detail/en/yageo/CC0805KKX7R7BB105/311-1365-1-ND/2103149
+
+* **4.7uF Capacitors**: https://www.digikey.com/product-detail/en/murata-electronics-north-america/GRM21BR61E475KA12L/490-3335-1-ND/702876
+
+* **22 Ohm Resistors**: https://www.digikey.com/product-detail/en/stackpole-electronics-inc/RMCF0805JT22R0/RMCF0805JT22R0CT-ND/1942533
+
+* **10k Ohm Resistors**: https://www.digikey.com/product-detail/en/stackpole-electronics-inc/RMCF0805JT10K0/RMCF0805JT10K0CT-ND/1942577
+
+* **Diodes**: https://www.digikey.com/product-detail/en/micro-commercial-co/1N4148W-TP/1N4148WTPMSCT-ND/717311
+
+* **Button**: https://www.digikey.com/product-detail/en/e-switch/TL3342F160QG-TR/EG2531CT-ND/379004
+
+* **Mini USB Connector**: https://www.digikey.com/product-detail/en/hirose-electric-co-ltd/UX60SC-MB-5S8/H11589CT-ND/1949225
+
+Good luck and have fun building your own PCBs!
