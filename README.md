@@ -59,9 +59,9 @@ Next, we'll add decoupling capacitors for VCC, our power source. We will general
 
 Let's hook up a reset switch. For this, you'll want a switch (`SW_PUSH`) named SW1 and a 10k resistor for pullup (`R`) named R1. If you want to know why we want a pullup resistor and what a pullup resistor even means, [here](https://learn.sparkfun.com/tutorials/pull-up-resistors) is a good explanation from Sparkfun. But for now, here's how it should be hooked up:
 
-![reset](https://puu.sh/tlIFI/447ea96e89.png)
+![reset](https://puu.sh/tlN4L/618c8ec2fc.png)
 
-You'll notice that we haven't connected it to ground yet. We will Soon<sup>TM</sup>, but first, let's put a 10k resistor named R2 on HWB/PE2 pin and connect it to ground. We want a resistor here because it tells the microcontroller that when we press the reset button, we want to go into the bootloader so that we can flash a new layout onto it!
+Now let's put a 10k resistor named R2 on HWB/PE2 pin and connect it to ground. We want a resistor here because it tells the microcontroller that when we press the reset button, we want to go into the bootloader so that we can flash a new layout onto it!
 
 ![hwb](https://puu.sh/tlJ3y/fc56dc3b1a.png)
 
@@ -71,7 +71,7 @@ Next, let's add our USB port. Add the `USB_mini_micro_B` component from the keyb
 
 Let's connect all the VCC connections together and all the GND connections together. Normally, you would place a capacitor between AVCC and VCC if you were using the built-in ADC (analog to digital converter), but we don't care about that for a keyboard, so just directly connect them. Here's what everything look like at this point:
 
-![overview](https://puu.sh/tlJtk/9ebde69104.png)
+![overview](https://puu.sh/tlNav/fe594c798c.png)
 
 Now let's build our switch matrix. For the purposes of this guide, we're simply making a nice and easy 2x2 matrix. We're going to want to use the `KEYSW` and `D` components for our switch and diode components, respectively. Just connect them like you would a handwired board, and don't forget to name them. K1 should correspond to D1, K2 should correspond to D2, and so on:
 
@@ -83,7 +83,7 @@ Now we want to connect this matrix to the controller. We'll use labels for ease 
 
 Finally, let's label all the unused pins as not connected. Use the no connect tool (blue X on the right) and click on all the unconnected pins on the controller and the ID pin on the USB port. This is also a good chance to make sure you didn't miss any VCC or GND pins earlier! Our final schematic should look like this:
 
-![final schematic](https://puu.sh/tlK4q/329f40d3d1.png)
+![final schematic](https://puu.sh/tlNbx/34287f96f2.png)
 
 ## Associating Components and Footprints
 
@@ -109,3 +109,175 @@ Now we want to generate the netlist, which is essentially a list of connections 
 
 In the dialog that opens, simply click "Generate". Use the default netlist name in the save dialog. If everything was laid out and named properly, KiCad should not ask you about annotations. If so, click "Cancel" and double check all of your references then try again.
 
+## PCB
+
+Now we get to create our PCB! Save and close out of the schematic editor. Then, go back to your project and open your ".kicad_pcb" file. You should be greeted by a blank PCB editor:
+
+![blank pcb editor](https://puu.sh/tlLju/b9d3e1f917.png)
+
+The first thing we're going to do is double check that all of our footprints are still here. Go to Preferences > Footprint Libraries Manager and make sure that all the footprint libraries you imported earlier are still there. If not, then simply import them again.
+
+Next, we're going to set our grid. Click on Dimensions > Grid, and set Units to Inches and Size X and Size Y both to 0.09375, like so:
+
+![dimensions](https://puu.sh/tlLri/0a3f3e98d5.png)
+
+Then, we want to tell the PCB editor to use our user-defined grid. Change the grid option at the top to "User Grid".
+
+The easiest way to get all our footprints onto the board is to read the netlist we generated earlier. Click on the netlist button, which should look the same as before, and simply click on "Read Current Netlist". A bunch of messages should show up, and the dialog should look something like:
+
+![read netlist](https://puu.sh/tlLxe/db0c0985c2.png)
+
+Now, click "Close". You'll notice that there are now a bunch of footprints in the middle of the screen all stacked on top of each other:
+
+![stack of footprints](https://puu.sh/tlLzq/db15624813.png)
+
+Before we separate them, let's hide the ratsnest, which is essentially the lines that detail the electrical connections in the board. Go to the "Render" tab on the right and uncheck "Ratsnest", like so:
+
+![hide ratsnest](https://puu.sh/tlLCt/fc0a1c07b4.png)
+
+Here are some useful commands for the PCB editor:
+
+```
+m: move the footprint
+g: drag the footprint while keeping connectivity
+e: edit the footprint
+r: rotate the footprint
+f: flip the footprint
+del: delete the footprint
+esc: abort!
+```
+
+Let's separate our footprints and put them on the correct side of the PCB. The only footprints that will be on the "front" of the PCB will be the switch footprints. Everything else will be on the "back" of the PCB, so make sure everything but the switches are flipped:
+
+![separated footprints](https://puu.sh/tlLUh/de9d45ca47.png)
+
+### Component Placement
+
+Arrange your switch footprints as shown if you haven't already. Then, edit each of the switch footprints and change the "Move and Place" option to "Lock footprint" so that we don't accidentally move them:
+
+![move and place](https://puu.sh/tlLVU/cbfed7c75c.png)
+
+Let's put our diodes under our switches first. Make sure each diode corresponds to its switch:
+
+![diodes](https://puu.sh/tlMd2/7879338387.png)
+
+Let's move our microcontroller next to the switches, like so:
+
+![microcontroller next to switches](https://puu.sh/tlMdB/2a71dd8102.png)
+
+Now the most important part of PCB design: the crystal. We need to make sure the traces to the crystal are as short as possible and that they are roughly the same length. An easy way to tell what pads are supposed to connect to what pads is to use the "highlight net" tool on the right. You use the tool and simply click on a pad, and it and the pads it connects to are highlighted. For this example, I put the crystal above the microcontroller and rotated it by 45 degrees:
+
+![crystal placement](https://puu.sh/tlMr3/95b421c453.png)
+
+Then place the 2 decoupling capacitors next to their respective pads:
+
+![crystal capacitors](https://puu.sh/tlMvz/235282f9a1.png)
+
+You don't need to worry about connecting ground to any other grounds, since we will be putting a ground plane under all the components. More on that later.
+
+Next, we want to place the decoupling capacitors for VCC. Place a 0.1uF capacitor next to each VCC and AVCC and the 4.7uF capacitor next to UVCC. At this point, I discovered that the microcontroller was a little too close to the switches, so I move it out a little bit:
+
+![capacitors](https://puu.sh/tlMOF/29083669ce.png)
+
+Let's put our last capacitor on, which will fit nicely between C5 and C7:
+
+![last capacitor](https://puu.sh/tlMS0/d48d7c0a32.png)
+
+Now let's place our mini USB connector and our reset switch. Here's where I put mine:
+
+![usb and reset](https://puu.sh/tlMWH/dc942c6897.png)
+
+And our last components, the resistors. Place them in a way such that routing traces later will be easier. Here's how I did mine:
+
+![resistors](https://puu.sh/tlNlB/3d3b769283.png)
+
+Note that at this point, my grid sizes are at 0.0234375" in each dimension to allow for finer positioning.
+
+### Edge Cuts
+
+Now let's draw out the outline for our board! Go to the "Layer" tab on the right and click next to "Edge.Cuts" to move the blue arrow down to it, effectively selecting it as the layer we're going to draw on:
+
+![edge.cuts](https://puu.sh/tlNtw/853d8a6b10.png)
+
+Use the drawing tools on the right to draw an outline for the PCB:
+
+![drawing tools](https://puu.sh/tlNC6/d9f0f24a10.png)
+
+Here's how I cut mine:
+
+![cuts](https://puu.sh/tlNIf/343882f7c3.png)
+
+### Ground Plane
+
+We want to put a ground plane in the PCB. Essentially, a ground plane is just one big chunk of copper that's connected to ground on both sides of the PCB. It's useful when we have a lot of components that are connected to ground, like in our PCB. To do this, we want to use the zone tool:
+
+![zone tool](https://puu.sh/tlNWB/604fed0fb8.png)
+
+Make sure the blue arrow is back on F.Cu in the Layers tab. Then, select the zone tool and click on one of the corners of the edge cuts. A dialog will pop up asking you which net the zone should be associated with. Select GND and hit "OK":
+
+![gnd](https://puu.sh/tlO4O/f4a78fd54a.png)
+
+Now, draw a border where you put the edge cuts. When you get back to the starting point, double click. You will see a red hatch pattern around your PCB. Now right click on the edge of the zone and select Zones > Duplicate Zone onto Layer. The same dialog will pop up, but this time, select B.Cu on the left and hit "OK". Now your PCB will have both a red and green hatch pattern around it:
+
+![hatches](https://puu.sh/tlObz/c465fe7218.png)
+
+Now right click and select each zone, and for each zone, select Zone > Fill Zone. Make sure the option to show filled zones is selected on the left:
+
+![zone options](https://puu.sh/tlOgq/b45b4df39a.png)
+
+And your PCB should now look something like this:
+
+![filledzones](https://puu.sh/tlOeG/9e4680ec2a.png)
+
+Now choose the option to hide filled zones. We don't want them while routing.
+
+### Routing
+
+Now we want to do some routing. To route, we want to use the "add tracks and vias" tool:
+
+![tool](https://puu.sh/tlOE5/7f7c42da7a.png)
+
+I would also recommend setting your grid size to 0.25mm for this part.
+
+Let's get some terminology out of the way first:
+
+* A **trace** is a physical electrical copper connection. Like a wire.
+* A **via** is a hole that goes through both sides of the PCB. This is useful because when routing traces, we'll run into collisions where we can't route a trace through another. A via lets us hop to the other side of the PCB and continue the trace on the other side.
+
+While routing, you can press `v` to switch layers and create a via.
+
+Now that we've gotten that out of the way, let's set some ground rules. Well, one ground rule. Namely, no vias between the crystal and the controller. Vias can potentially lead to a small amount of capacitance that can actually affect our crystal operation, so that's a big no no.
+
+Now let's start routing. The first thing you want to route is always the crystal and the decoupling capacitors next to it. Luckily for us, this is pretty simple. To get started, make sure you have the B.Cu layer selected, since that's where most of our components are. Here's how I did mine:
+
+![crystal](https://puu.sh/tlOUN/b77d6e980c.png)
+
+Next, let's route the VCC lines. Make sure you route the decoupling capacitors to their appropriate VCC pins on the microcontroller. And don't forget to route to the USB port!
+
+![vcc](https://puu.sh/tlP6o/d6f657cab5.png)
+
+Now let's route the UCap capacitor and the rest of the resistors. Keep in mind that a well designed PCB will also look aesthetically pleasing. Here's how I routed the remaining capacitor and the resistors:
+
+![resistors](https://puu.sh/tlPzr/dd697e2b55.png)
+
+Note that I changed the routing of the switch to accommodate for the traces for the USB data resistors. You can also turn on the ratsnest in the Render tab on the right to check for any connections you have missed or any ground connections you may have accidentally broken while tracing routes. Ignore the traces that lead to the diodes and switches. We'll route those next. It turns out, I forgot to route all of the VCC pads together and broke a few ground connections. This is what my PCB looked like after fixing all the missed connections:
+
+![fixed](https://puu.sh/tlQhg/0f0b8af4c9.png)
+
+And now we'll route the diodes and switches. First, route the diodes and switches together before touching the controller:
+
+![diodes and switches](https://puu.sh/tlQsx/0b45b33c66.png)
+
+And finally, we'll route the controller to the rows and columns:
+
+![done](https://puu.sh/tlQBG/299c54bab7.png)
+
+Turn on your zones, fill in any missing ground planes, and voila:
+
+![voila](https://puu.sh/tlQE6/42810ef699.png)
+
+Your PCB is finished!
+
+Go to View > 3D View and turn on Preference > Realistic Mode. Turn up all the settings you want, set your background color, and you'll have a nice render of your PCB!
+
+![render](https://puu.sh/tlQJE/7a5c1b4374.png)
