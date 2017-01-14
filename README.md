@@ -12,6 +12,8 @@ We're going to want some libraries, too. I like to use Hasu's keyboard_parts [co
 
 Download all of these and we should be good to go!
 
+Make sure you also have the official KiCad libraries as well. Those should be included with your KiCad installation.
+
 ## Schematics
 
 Start up KiCad and create a new project (File > New Project > New Project). Name the project whatever you want. For the purposes of this guide, I'll be calling it "example". Very creative, I know.
@@ -82,3 +84,28 @@ Now we want to connect this matrix to the controller. We'll use labels for ease 
 Finally, let's label all the unused pins as not connected. Use the no connect tool (blue X on the right) and click on all the unconnected pins on the controller and the ID pin on the USB port. This is also a good chance to make sure you didn't miss any VCC or GND pins earlier! Our final schematic should look like this:
 
 ![final schematic](https://puu.sh/tlK4q/329f40d3d1.png)
+
+## Associating Components and Footprints
+
+We have to tell KiCad what each of these components means. Click on the icon for CvPcb at the top:
+
+![cvpcb icon](https://puu.sh/tlKuw/63609994b2.png)
+
+If this is your first time running CvPcb, we're going to need to add the footprint libraries we downloaded earlier. Click Preferences > Footprint Libraries, and in the window that shows up, use the "Append with Wizard" button to add the "keebs.pretty" and "keyboard_parts.pretty" folders that we downloaded earlier. You may also need to manually add the built-in KiCad libraries. Your list of libraries should look something like this now:
+
+![footprint libraries](https://puu.sh/tlKR8/ca939bc6aa.png)
+
+We're going to assume that all of our capacitors and resistors are 0805 imperial size. Our ATmega32U4 is going to be in a TQFN package. We're going to use the very handy hybrid through-hole and surface mount footprint from Hasu's library for our diodes. Switches are going to be /u/techieee's 1u switch footprint. The crystal will be an FA-238 series crystal. The reset button will be a TL3442 series button, and the USB mini B port will be a Hirose 5S8 connector. For each component, go through the list of footprints and double click on one to associate it with the currently selected component. Here's what all the associations should end up looking like:
+
+![associations](https://puu.sh/tlL4M/eb22fc8383.png)
+
+Save the assocations and close the window.
+
+## Generating Netlist
+
+Now we want to generate the netlist, which is essentially a list of connections in our schematic. Click on the netlist button:
+
+![netlist button](https://puu.sh/tlL9i/077c92b75c.png)
+
+In the dialog that opens, simply click "Generate". Use the default netlist name in the save dialog. If everything was laid out and named properly, KiCad should not ask you about annotations. If so, click "Cancel" and double check all of your references then try again.
+
