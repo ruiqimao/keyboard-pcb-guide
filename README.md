@@ -338,7 +338,7 @@ Upload your files onto http://www.gerber-viewer.com/ and make sure all the layer
 
 ### Manufacturer
 
-Now, there are a lot of options here. I've personally used [PCBWay](http://www.pcbway.com/setinvite.aspx?inviteid=25678) to great success, but there are plenty of other cheap PCB prototyping services, such as [EasyEDA](https://easyeda.com/) and [DirtyPCBs](http://dirtypcbs.com/store/pcbs).
+Now, there are a lot of options here. I've personally used [PCBWay](http://www.pcbway.com/setinvite.aspx?inviteid=25678) (referral link) to great success, but there are plenty of other cheap PCB prototyping services, such as [EasyEDA](https://easyeda.com/) and [DirtyPCBs](http://dirtypcbs.com/store/pcbs).
 
 All of these services simply involve choosing some options for how your PCBs will be manufactuered (default settings are fine for all of them), then uploading the zip file you just created. If you want to change the color of your PCB, then the option you will want to look for is "solder mask color". The color of the text on your PCB will be "silkscreen color".
 
