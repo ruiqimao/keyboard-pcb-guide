@@ -338,7 +338,7 @@ Upload your files onto http://www.gerber-viewer.com/ and make sure all the layer
 
 ### Manufacturer
 
-Now, there are a lot of options here. I've personally used [PCBWay](http://www.pcbway.com/setinvite.aspx?inviteid=25678) (referral link) to great success, but there are plenty of other cheap PCB prototyping services, such as [EasyEDA](https://easyeda.com/) and [DirtyPCBs](http://dirtypcbs.com/store/pcbs).
+Now, there are a lot of options here. I've personally used [PCBWay](http://www.pcbway.com/setinvite.aspx?inviteid=25678) (referral link) to great success, but there are plenty of other cheap PCB prototyping services, such as [EasyEDA](https://easyeda.com/), [OSH Park](https://oshpark.com) and [DirtyPCBs](http://dirtypcbs.com/store/pcbs).
 
 All of these services simply involve choosing some options for how your PCBs will be manufactuered (default settings are fine for all of them), then uploading the zip file you just created. If you want to change the color of your PCB, then the option you will want to look for is "solder mask color". The color of the text on your PCB will be "silkscreen color".
 
@@ -359,5 +359,7 @@ But where do you get the components from? I highly recommend [DigiKey](http://ww
 * **Diodes**: https://www.digikey.com/product-detail/en/micro-commercial-co/1N4148W-TP/1N4148WTPMSCT-ND/717311
 * **Button**: https://www.digikey.com/product-detail/en/e-switch/TL3342F160QG-TR/EG2531CT-ND/379004
 * **Mini USB Connector**: https://www.digikey.com/product-detail/en/hirose-electric-co-ltd/UX60SC-MB-5S8/H11589CT-ND/1949225
+
+Other good places to get electronic components include [Mouser](http://mouser.com) and [element14](http://element14.com).
 
 Good luck and have fun building your own PCBs!
