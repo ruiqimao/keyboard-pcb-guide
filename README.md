@@ -338,7 +338,7 @@ Upload your files onto http://www.gerber-viewer.com/ and make sure all the layer
 
 ### Manufacturer
 
-Now, there are a lot of options here. I've personally used [PCBWay](http://www.pcbway.com/setinvite.aspx?inviteid=25678) (referral link) to great success, but there are plenty of other cheap PCB prototyping services, such as [EasyEDA](https://easyeda.com/), [OSH Park](https://oshpark.com) and [DirtyPCBs](http://dirtypcbs.com/store/pcbs).
+Now, there are a lot of options here. I've personally used [PCBWay](http://www.pcbway.com/setinvite.aspx?inviteid=25678) (referral link) to great success, but there are plenty of other cheap PCB prototyping services, such as [AISLER](https://go.aisler.net) (They also provide parts in an all-in-one solution),  [EasyEDA](https://easyeda.com/), [OSH Park](https://oshpark.com) and [DirtyPCBs](http://dirtypcbs.com/store/pcbs).
 
 All of these services simply involve choosing some options for how your PCBs will be manufactuered (default settings are fine for all of them), then uploading the zip file you just created. If you want to change the color of your PCB, then the option you will want to look for is "solder mask color". The color of the text on your PCB will be "silkscreen color".
 
@@ -346,7 +346,7 @@ Once you receive your PCBs, you can simply use some solder paste and a hot air r
 
 ### Components
 
-But where do you get the components from? I highly recommend [DigiKey](http://www.digikey.com/) for components. Here's a list of all the components used in this guide:
+But where do you get the components from? I highly recommend [DigiKey](http://www.digikey.com/) for components. [AISLER](https://go.aisler.net) also offers to get the parts you need directly with your PCBs. Here's a list of all the components used in this guide:
 
 * **Microcontroller**: https://www.digikey.com/product-detail/en/microchip-technology/ATMEGA32U4-AUR/ATMEGA32U4-AURCT-ND/3440960
 * **Crystal**: https://www.digikey.com/product-detail/en/epson/FA-238-16.0000MB-C3/SER3686CT-ND/2403459
