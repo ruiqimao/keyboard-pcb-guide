@@ -111,7 +111,7 @@ If this is your first time running CvPcb, we're going to need to add the footpri
 
 ![footprint libraries](https://puu.sh/tlKR8/ca939bc6aa.png)
 
-We're going to assume that all of our capacitors and resistors are 0805 imperial size. Our ATmega32U4 is going to be in a TQFN package. We're going to use the very handy hybrid through-hole and surface mount footprint from Hasu's library for our diodes. Switches are going to be /u/techieee's 1u switch footprint. The crystal will be an FA-238 series crystal. The reset button will be a TL3442 series button, and the USB mini B port will be a Hirose 5S8 connector. For each component, go through the list of footprints and double click on one to associate it with the currently selected component. Here's what all the associations should end up looking like:
+We're going to assume that all of our capacitors and resistors are 0805 imperial size. Our ATmega32U4 is going to be in a TQFN package. We're going to use the very handy hybrid through-hole and surface mount footprint from Hasu's library for our diodes. Switches are going to be /u/techieee's 1u switch footprint. The crystal will be an FA-238 series crystal. The reset button will be a TL3342 series button, and the USB mini B port will be a Hirose 5S8 connector. For each component, go through the list of footprints and double click on one to associate it with the currently selected component. Here's what all the associations should end up looking like:
 
 ![associations](https://puu.sh/tlL4M/eb22fc8383.png)
 
