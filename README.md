@@ -63,11 +63,11 @@ Do Place > Component. Your cursor should turn into a pencil. Click anywhere on t
 
 Click OK, then click on the schematic sheet again to place the component. This is our controller. Edit the component and change the reference from "U?" to "U1". This is the unique name that we're going to use to refer to this particular component.
 
-The next part we'll want to place is the crystal, which is the part that tells the controller how fast to run. Look for the `XTAL_GND` component and place it next to the controller. Change the reference to X1.
+The next part we'll want to place is the crystal, which is the part that tells the controller how fast to run. Use the component `Device:Crystal_GND24`. Change the reference to Y1. **Do not use the `XTAL_GND` component from the `tmk_keyboard_parts` library because it results in the wrong pins going to the microcontroller and needing to solder the crystal 45 degrees out of place**.
 
-Next, we're going to want to add 2 decoupling capacitors (`C_SMALL`). These capacitors will basically help prevent the signal to the controller from accumulating too much noise. There's a formula for determining the capacitance you need for these capacitors, but for now, we'll use a crystal with 18pF load capacitance, so these decoupling capacitors will be 22pF. Name them C1 and C2, and change their values to 22p. Also add a GND symbol to represent ground, and connect everything using the wire tool (green line on the right) like so:
+Next, we're going to want to add 2 load capacitors (`C_SMALL`). These capacitors are required to make the crystal resonate. There's a formula for determining the capacitance you need for these capacitors, but for now, we'll use a crystal with 18pF load capacitance, so these decoupling capacitors will be 22pF. Name them C1 and C2, and change their values to 22p. Also add a GND symbol to represent ground, and connect everything using the wire tool (green line on the right) like so:
 
-![crystal](https://puu.sh/tlHHo/8621b549c2.png)
+![crystal](https://cloud.githubusercontent.com/assets/8745512/24975120/955542d8-1f92-11e7-955a-f9ecdddc31b9.png)
 
 Next, we'll add decoupling capacitors for VCC, our power source. We will generally want one 0.1uF capacitor for each VCC/AVCC on the controller and one 4.7uF capacitor for UVcc. In our case, we want 4 0.1uF capacitors and 1 4.7uF capacitor, like so:
 
@@ -85,7 +85,7 @@ Next, let's add our USB port. Add the `USB_mini_micro_B` component from the keyb
 
 ![usb](https://puu.sh/tlJnf/ac2c36306d.png)
 
-Let's connect all the VCC connections together and all the GND connections together. Normally, you would place a capacitor between AVCC and VCC if you were using the built-in ADC (analog to digital converter), but we don't care about that for a keyboard, so just directly connect them. Here's what everything look like at this point:
+Let's connect all the VCC connections together and all the GND connections together. Normally, you would place a capacitor between AVCC and VCC if you were using the built-in ADC (analog to digital converter), but we don't care about that for a keyboard, so just directly connect them. Here's what everything look like at this point (this image's crystal circuitry is outdated, the crystal symbol has since been corrected):
 
 ![overview](https://puu.sh/tlNav/fe594c798c.png)
 
@@ -97,7 +97,7 @@ Now we want to connect this matrix to the controller. We'll use labels for ease 
 
 ![matrix controller](https://puu.sh/tlJZ1/1b38e0274b.png)
 
-Finally, let's label all the unused pins as not connected. Use the no connect tool (blue X on the right) and click on all the unconnected pins on the controller and the ID pin on the USB port. This is also a good chance to make sure you didn't miss any VCC or GND pins earlier! Our final schematic should look like this:
+Finally, let's label all the unused pins as not connected. Use the no connect tool (blue X on the right) and click on all the unconnected pins on the controller and the ID pin on the USB port. This is also a good chance to make sure you didn't miss any VCC or GND pins earlier! Our final schematic should look like this (again, the crystal circuitry is incorrect and the symbol has since been updated):
 
 ![final schematic](https://puu.sh/tlNbx/34287f96f2.png)
 
