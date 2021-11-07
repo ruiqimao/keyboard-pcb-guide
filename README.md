@@ -20,7 +20,7 @@ So you want to make a PCB for a keyboard? Don't know where or how to start? Well
 
 ## Setting Up
 
-We're going to need [KiCad](http://kicad-pcb.org/). Download it, install it, and you should be ready to go!
+We're going to need [KiCad](http://kicad.org/). Download it, install it, and you should be ready to go!
 
 ... almost.
 
